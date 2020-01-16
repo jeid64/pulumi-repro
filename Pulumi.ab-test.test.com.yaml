@@ -1,0 +1,43 @@
+encryptionsalt: v1:+Sch8vSJ2CQ=:v1:x43YUiCmPJw6ra5f:gtAsxujrQ5BwG2zsHtl+Zw5FGfbu3Q==
+config:
+  ghfastly:service:
+    acls:
+    - entries: null
+      name: acl_internal_ips
+    - entries:
+      - comment: test
+        ip: 192.168.1.1
+      - comment: test
+        ip: 192.168.1.1
+        subnet: 24
+      name: acl_blacklist_ips
+    - entries: null
+      name: acl_whitelist_ips
+    activate: true
+    comment: Andrew Tests
+    dictionaries:
+    - items:
+        Foo: bar
+      name: test_dict1
+    - items:
+        Test: "bar"
+      name: test_dict2
+    domains:
+    - name: api-ab-testing.testingpp.com
+    backends:
+      - address: test.com
+        auto_loadbalance: false
+        between_bytes_timeout: 10000
+        connect_timeout: 1000
+        error_threshold: 0
+        first_byte_timeout: 15000
+        max_conn: 200
+        name: us_west_2
+        overrideHost: ""
+        port: "443"
+        shield: sea-wa-us
+        ssl_check_cert: false
+        ssl_sni_hostname: ""
+        use_ssl: false
+        weight: 100
+    name: ab-test.test.com

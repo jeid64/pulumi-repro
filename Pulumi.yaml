@@ -1,0 +1,3 @@
+name: pulumi-repro
+runtime: python
+description: repro of dictionary issues

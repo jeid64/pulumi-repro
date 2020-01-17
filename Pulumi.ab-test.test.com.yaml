@@ -20,7 +20,7 @@ config:
         Foo: bar
       name: test_dict1
     - items:
-        Test: "bar"
+        Test: bar
       name: test_dict2
     domains:
     - name: api-ab-testing.testingpp.com

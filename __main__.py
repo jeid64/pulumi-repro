@@ -12,20 +12,19 @@ def main():
     pulumi.export("Dictionaries", service.dictionaries)
     di = []
     for dictionary in service_config["dictionaries"]:
-        print(dictionary['name'])
-        dictionary_id = service.dictionaries.apply(
-            lambda x: get_dictionary_id(x, dictionary.get("name")))
+        if not pulumi.runtime.is_dry_run():
+            dictionary_id = service.dictionaries.apply(
+                lambda x: get_dictionary_id(x, dictionary.get("name")))
+        else:
+            # https://github.com/pulumi/pulumi-azure/issues/192
+            dictionary_id = service.dictionaries.apply( lambda dictionary_id: "11111111-1111-1111-1111-111111111111")
         di.append(
-            ServiceDictionaryItemsv1(dictionary["name"], pulumi.ResourceOptions(parent=service), service_id=service.id,
-                                     items=dictionary["items"],
-                                     dictionary_id=dictionary_id))
+            ServiceDictionaryItemsv1(dictionary["name"], opts=pulumi.ResourceOptions(parent=service), service_id=service.id, items=dictionary["items"], dictionary_id=dictionary_id))
         pulumi.export("Dictionary Items", di)
-
 
 def get_dictionary_id(dictionaries, dict_name):
     for i in dictionaries:
         if dict_name == i["name"]:
-            print(i)
             return i.get("dictionary_id")
 
 

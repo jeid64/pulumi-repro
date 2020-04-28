@@ -13,13 +13,20 @@ def main():
     di = []
     for dictionary in service_config["dictionaries"]:
         print(dictionary['name'])
-        dictionary_id = service.dictionaries.apply(
+        tmp_dictionary_id = service.dictionaries.apply(
             lambda x: get_dictionary_id(x, dictionary.get("name")))
+        dictionary_id = pulumi.Output.all(service.id, tmp_dictionary_id).apply(tmp(service.dictionaries))
         di.append(
             ServiceDictionaryItemsv1(dictionary["name"], pulumi.ResourceOptions(parent=service), service_id=service.id,
                                      items=dictionary["items"],
                                      dictionary_id=dictionary_id))
         pulumi.export("Dictionary Items", di)
+
+
+
+def tmp(lst):
+    print (lst[1])
+    return lst[1]
 
 
 def get_dictionary_id(dictionaries, dict_name):

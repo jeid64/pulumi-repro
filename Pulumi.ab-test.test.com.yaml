@@ -22,6 +22,9 @@ config:
     - items:
         Test: bar
       name: test_dict2
+    - items:
+        Test2: bazzzz
+      name: test_dict3
     domains:
     - name: api-ab-testing.testingpp.com
     backends:

@@ -1,2 +1,2 @@
-pulumi>=1.0.0
-pulumi_fastly
+pulumi==2.0.0
+pulumi_fastly==2.0.0
